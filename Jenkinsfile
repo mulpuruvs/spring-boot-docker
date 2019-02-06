@@ -1,17 +1,12 @@
 pipeline {
   agent any
   
-  tools {
-    maven 'Maven'
-    jdk 'java1.8.0'
-  }
-  
-  stages {
-      stage('Build') {
-          steps {
-            sh "mvn -B -DskipTests clean package"
-          }
-      }
-  }
+  stage('Build') {
+		    steps {
+			echo 'Running build automation'
+			sh './gradlew build --no-daemon'
+			archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+		    }
+		}
   
 }
